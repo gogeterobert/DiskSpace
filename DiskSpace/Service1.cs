@@ -19,7 +19,8 @@ namespace DiskSpace
     {
         Timer timer;
         private float acceptablePercentage = 0.10f;
-        private string[] toEmails = { "robert.gogete@equilobe.com", "marius.donci@equilobe.com", "radu.ungureanu@equilobe.com", "catalin.criveteanu@equilobe.com"};
+        private string[] toEmails = { "robert.gogete@equilobe.com", "marius.donci@equilobe.com" };
+        //, "radu.ungureanu@equilobe.com", "catalin.criveteanu@equilobe.com"
 
         public Service1()
         {
@@ -31,10 +32,11 @@ namespace DiskSpace
 
         private void onTick()
         {
+            var gigabyteInBytes = 1024 * 1024 * 1024;
             var lowOnSpace = false;
             foreach (var drive in DriveInfo.GetDrives())
                 if (drive.IsReady)
-                    if ((float)drive.AvailableFreeSpace / drive.TotalSize <= acceptablePercentage)
+                    if ((float)drive.AvailableFreeSpace / drive.TotalSize <= acceptablePercentage && (float)drive.TotalSize / gigabyteInBytes > 10f)
                         lowOnSpace = true;
 
             var message = "One of the drives has under " + acceptablePercentage * 100 + "% free space. Here is the current status of all: \n\n";
@@ -44,7 +46,7 @@ namespace DiskSpace
                     if (drive.IsReady)
                     {
                         message += drive.Name + " Available space: " + (float)drive.AvailableFreeSpace / (1024 * 1024 * 1024) + "/" + (float)drive.TotalSize / (1024 * 1024 * 1024) + " GB";
-                        if ((float)drive.AvailableFreeSpace / drive.TotalSize <= acceptablePercentage)
+                        if ((float)drive.AvailableFreeSpace / drive.TotalSize <= acceptablePercentage && (float)drive.TotalSize / gigabyteInBytes > 10f)
                             message += "  <------";
                         message += "\n";
                     }
