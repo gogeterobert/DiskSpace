@@ -19,7 +19,7 @@ namespace DiskSpace
     {
         Timer timer;
         private float acceptablePercentage = 0.10f;
-        private string[] toEmails = { "robert.gogete@equilobe.com", "marius.donci@equilobe.com", "radu.ungureanu@equilobe.com", "catalin.criveteanu@equilobe.com" };
+        private string[] toEmails = { "robert.gogete@equilobe.com", "marius.donci@equilobe.com", "radu.ungureanu@equilobe.com", "catalin.criveteanu@equilobe.com"};
 
         public Service1()
         {
@@ -49,7 +49,7 @@ namespace DiskSpace
                         message += "\n";
                     }
 
-                SendEmail(String.Join(",", toEmails), "", "", "Low on disk space", message);
+                SendEmail(String.Join(",", toEmails), "", "", "[" + Environment.MachineName +  "] Low on disk space", message);
             }
         }
 
