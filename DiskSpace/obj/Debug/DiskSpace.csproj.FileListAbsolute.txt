@@ -6,3 +6,12 @@ C:\Users\equilobe\source\repos\DiskSpace\DiskSpace\obj\Debug\DiskSpace.exe
 C:\Users\equilobe\source\repos\DiskSpace\DiskSpace\obj\Debug\DiskSpace.pdb
 C:\Users\equilobe\source\repos\DiskSpace\DiskSpace\obj\Debug\DiskSpace.ProjectInstaller.resources
 C:\Users\equilobe\source\repos\DiskSpace\DiskSpace\obj\Debug\DiskSpace.csproj.GenerateResource.cache
+C:\Users\equilobe\source\repos\DiskSpacev2\DiskSpace\DiskSpace\bin\Debug\DiskSpace.exe.config
+C:\Users\equilobe\source\repos\DiskSpacev2\DiskSpace\DiskSpace\bin\Debug\DiskSpace.exe
+C:\Users\equilobe\source\repos\DiskSpacev2\DiskSpace\DiskSpace\bin\Debug\DiskSpace.pdb
+C:\Users\equilobe\source\repos\DiskSpacev2\DiskSpace\DiskSpace\obj\Debug\DiskSpace.csprojAssemblyReference.cache
+C:\Users\equilobe\source\repos\DiskSpacev2\DiskSpace\DiskSpace\obj\Debug\DiskSpace.ProjectInstaller.resources
+C:\Users\equilobe\source\repos\DiskSpacev2\DiskSpace\DiskSpace\obj\Debug\DiskSpace.csproj.GenerateResource.cache
+C:\Users\equilobe\source\repos\DiskSpacev2\DiskSpace\DiskSpace\obj\Debug\DiskSpace.csproj.CoreCompileInputs.cache
+C:\Users\equilobe\source\repos\DiskSpacev2\DiskSpace\DiskSpace\obj\Debug\DiskSpace.exe
+C:\Users\equilobe\source\repos\DiskSpacev2\DiskSpace\DiskSpace\obj\Debug\DiskSpace.pdb
