@@ -18,8 +18,8 @@ namespace DiskSpace
     public partial class Service1 : ServiceBase
     {
         Timer timer;
-        private float acceptablePercentage = 0.95f;
-        private string[] toEmails = { "robert.gogete@equilobe.com" };
+        private float acceptablePercentage = 0.10f;
+        private string[] toEmails = { "robert.gogete@equilobe.com", "marius.donci@equilobe.com", "radu.ungureanu@equilobe.com", "catalin.criveteanu@equilobe.com" };
 
         public Service1()
         {
@@ -80,7 +80,7 @@ namespace DiskSpace
             mailMessage.From = new MailAddress(FromEmailid); //From Email Id  
             mailMessage.Subject = Subj; //Subject of Email  
             mailMessage.Body = Message; //body or message of Email  
-            mailMessage.IsBodyHtml = true;
+            mailMessage.IsBodyHtml = false;
 
             string[] ToMuliId = ToEmail.Split(',');
             foreach (string ToEMailId in ToMuliId)
@@ -109,7 +109,7 @@ namespace DiskSpace
 
             //network and security related credentials  
 
-            smtp.EnableSsl = false;
+            smtp.EnableSsl = true;
             NetworkCredential NetworkCred = new NetworkCredential();
             NetworkCred.UserName = mailMessage.From.Address;
             NetworkCred.Password = Pass;

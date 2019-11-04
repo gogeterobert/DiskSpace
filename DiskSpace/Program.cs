@@ -22,10 +22,10 @@ namespace DiskSpace
                     ServiceName = "DiskSpace"
                 }
             };
-            ServiceBase.Run(ServicesToRun);
+            //ServiceBase.Run(ServicesToRun);
 
             Service1 service1 = new Service1();
-            //service1.Start();
+            service1.Start();
         }
     }
 }
