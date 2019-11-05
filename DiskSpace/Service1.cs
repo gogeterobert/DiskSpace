@@ -18,45 +18,68 @@ namespace DiskSpace
     public partial class Service1 : ServiceBase
     {
         Timer timer;
-        private float acceptablePercentage = 0.90f;
-        private string[] toEmails = { "marius.donci@equilobe.com" };
-        int minuteInMiliseconds = 60000;
-
+        private float acceptablePercentage = 0.20f;
+        private string[] toEmails = {  };
 
         public Service1()
         {
             InitializeComponent();
+            int minuteInMiliseconds = 60000;
             timer = new Timer(minuteInMiliseconds);
             timer.Elapsed += delegate { onTick(); };
         }
 
         private void onTick()
         {
-            var gigabyteInBytes = 1024 * 1024 * 1024;
             var lowOnSpace = false;
+            int minuteInMiliseconds = 60000;
             foreach (var drive in DriveInfo.GetDrives())
                 if (drive.IsReady)
-                    if ((float)drive.AvailableFreeSpace / drive.TotalSize <= acceptablePercentage && (float)drive.TotalSize / gigabyteInBytes > 10f)
+                    if ((float)drive.AvailableFreeSpace / drive.TotalSize <= acceptablePercentage && getSizeInGB(drive.TotalSize) > 10f)
                         lowOnSpace = true;
 
             var message = "One of the drives has under " + acceptablePercentage * 100 + "% free space. Here is the current status of all: \n\n";
 
             if (lowOnSpace)
             {
-                timer.Interval = 60 * minuteInMiliseconds;
+                setTimerInterval(60);
                 foreach (var drive in DriveInfo.GetDrives())
                     if (drive.IsReady)
-                    {
-                        message += drive.Name + " Available space: " + (float)drive.AvailableFreeSpace / (1024 * 1024 * 1024) + "/" + (float)drive.TotalSize / (1024 * 1024 * 1024) + " GB";
-                        if ((float)drive.AvailableFreeSpace / drive.TotalSize <= acceptablePercentage && (float)drive.TotalSize / gigabyteInBytes > 10f)
-                            message += "  <------";
-                        message += "\n";
-                    }
+                        message += formatMessage(drive);
 
-                SendEmail(String.Join(",", toEmails), "", "", "[" + Environment.MachineName +  "] Low on disk space", message);
+                SendEmail(String.Join(",", toEmails), "", "", "[" + Environment.MachineName + "] Low on disk space", message);
             }
-            else
-                timer.Interval = minuteInMiliseconds;
+            else if (timer.Interval != minuteInMiliseconds)
+                setTimerInterval(1);
+        }
+
+        private void setTimerInterval(int minutes)
+        {
+            int minuteInMiliseconds = 60000;
+            timer.Stop();
+            timer.Interval = minutes * minuteInMiliseconds;
+            timer.Start();
+        }
+
+        private string formatMessage(DriveInfo drive)
+        {
+            var message = "";
+
+            message += drive.Name + " Available space: " + getSizeInGB(drive.AvailableFreeSpace) + "/" + getSizeInGB(drive.TotalSize) + " GB";
+
+            if ((float)drive.AvailableFreeSpace / drive.TotalSize <= acceptablePercentage && getSizeInGB(drive.TotalSize) > 10f)
+                message += "  <------";
+
+            message += "\n";
+
+            return message;
+        }
+
+        private float getSizeInGB(long space)
+        {
+            var gigabyteInBytes = 1024 * 1024 * 1024;
+
+            return (float)space / gigabyteInBytes;
         }
 
         public void Start()
