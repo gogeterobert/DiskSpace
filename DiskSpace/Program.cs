@@ -18,9 +18,6 @@ namespace DiskSpace
             ServicesToRun = new ServiceBase[]
             {
                 new Service1()
-                {
-                    ServiceName = "DiskSpace"
-                }
             };
             ServiceBase.Run(ServicesToRun);
 

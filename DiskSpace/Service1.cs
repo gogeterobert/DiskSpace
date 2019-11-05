@@ -18,14 +18,14 @@ namespace DiskSpace
     public partial class Service1 : ServiceBase
     {
         Timer timer;
-        private float acceptablePercentage = 0.10f;
-        private string[] toEmails = { };
-        
+        private float acceptablePercentage = 0.90f;
+        private string[] toEmails = { "marius.donci@equilobe.com" };
+        int minuteInMiliseconds = 60000;
+
 
         public Service1()
         {
             InitializeComponent();
-            var minuteInMiliseconds = 60000;
             timer = new Timer(minuteInMiliseconds);
             timer.Elapsed += delegate { onTick(); };
         }
@@ -40,8 +40,10 @@ namespace DiskSpace
                         lowOnSpace = true;
 
             var message = "One of the drives has under " + acceptablePercentage * 100 + "% free space. Here is the current status of all: \n\n";
+
             if (lowOnSpace)
             {
+                timer.Interval = 60 * minuteInMiliseconds;
                 foreach (var drive in DriveInfo.GetDrives())
                     if (drive.IsReady)
                     {
@@ -53,6 +55,8 @@ namespace DiskSpace
 
                 SendEmail(String.Join(",", toEmails), "", "", "[" + Environment.MachineName +  "] Low on disk space", message);
             }
+            else
+                timer.Interval = minuteInMiliseconds;
         }
 
         public void Start()
